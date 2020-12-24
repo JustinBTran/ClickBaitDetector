@@ -48,20 +48,16 @@ async function GetHeadlines(page){
     console.log("Geting Headlines.");
     try{
         var headlines = await page.evaluate(() => {
-            //const divName = ".a8c37x1j";
-            const divName = "[data-pagelet^='FeedUnit']";
+            const divNamePostings = "[data-pagelet^='FeedUnit']";
             var hl = [];
-            var linkedPosts = document.body.querySelectorAll(divName);
+            var linkedPosts = document.body.querySelectorAll(divNamePostings);
             for(var i =0; i<linkedPosts.length;i++){
                 let headline = linkedPosts[i].querySelector("[class^='a8c37x1j ni8dbmo4 stjgntxs l9j0dhe7 ojkyduve']");
                 if(headline != null)
                     hl.push(headline.textContent);
-               //hl.push(linkedPosts[i].textContent);
             }
-            //return linkedPosts.length;
             return hl;
         })
-        //console.log(headlines);
         headlines.forEach(element => console.log(element));
     }catch(err){
         console.log(err.message);
